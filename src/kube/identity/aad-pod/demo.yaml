@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+  labels:
+    aadpodidbinding: ric-id-k8s
+spec:
+  containers:
+  - name: demo
+    image: mcr.microsoft.com/k8s/aad-pod-identity/demo:1.2
+    args:
+      - --subscriptionid=4741542a-012a-40dc-ad80-cdca217951f0
+      - --clientid=bd18dacf-f64e-47a8-a056-a0ce2c7a1e07
+      - --resourcegroup=ric-brso-all-rg-k8s
+    env:
+      - name: MY_POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: MY_POD_NAMESPACE
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.namespace
+      - name: MY_POD_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.podIP
+  nodeSelector:
+    kubernetes.io/os: linux

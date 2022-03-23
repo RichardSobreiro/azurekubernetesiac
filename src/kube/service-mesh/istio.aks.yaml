@@ -1,0 +1,52 @@
+apiVersion: install.istio.io/v1alpha2
+kind: IstioControlPlane
+spec:
+  # Use the default profile as the base
+  # More details at: https://istio.io/docs/setup/additional-setup/config-profiles/
+  profile: default
+  components:
+    pilot:
+      k8s:
+        resources:
+          requests:
+            cpu: 10m # override from default 500m
+            memory: 40Mi # ... default 2048Mi
+  values:
+    global:
+      # Ensure that the Istio pods are only scheduled to run on Linux nodes
+      defaultNodeSelector:
+        beta.kubernetes.io/os: linux
+      # Enable mutual TLS for the control plane
+      controlPlaneSecurityEnabled: true
+      mtls:
+        # Require all service to service communication to have mtls
+        enabled: false
+    grafana:
+      # Enable Grafana deployment for analytics and monitoring dashboards
+      enabled: true
+      security:
+        # Enable authentication for Grafana
+        enabled: true
+      env:
+        GF_SERVER_ROOT_URL: 'https://ric-brso-all-k8s.brazilsouth.cloudapp.azure.com/grafana'
+    kiali:
+      # Enable the Kiali deployment for a service mesh observability dashboard
+      enabled: true
+      resources:
+        requests:
+          cpu: 2m # override from default 500m
+    tracing:
+      # Enable the Jaeger deployment for tracing
+      enabled: true
+      jaeger:
+        resources:
+          requests:
+            cpu: 2m # override from default 500m
+    gateways:
+      istio-ingressgateway:
+        enabled: false
+    prometheus:
+      enabled: true
+      resources:
+        requests:
+          cpu: 2m # override from default 500m

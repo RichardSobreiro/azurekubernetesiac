@@ -1,0 +1,41 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: desenvolvedores-pre-producao-read-access
+  namespace: pre-producao
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pre-producao-read-access
+subjects:
+- kind: Group
+  namespace: pre-producao
+  name: bfe38006-b3e6-4228-93cf-48f85906fb3b
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: lideres-pre-producao-read-access
+  namespace: pre-producao
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pre-producao-read-access
+subjects:
+- kind: Group
+  namespace: pre-producao
+  name: bfe38006-b3e6-4228-93cf-48f85906fb3b
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: arquitetos-full-access
+  namespace: pre-producao
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pre-producao-full-access
+subjects:
+- kind: Group
+  namespace: pre-producao
+  name: bfe38006-b3e6-4228-93cf-48f85906fb3b

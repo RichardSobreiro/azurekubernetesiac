@@ -1,0 +1,8 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+  name: ric-id-k8s
+spec:
+  type: 0
+  ResourceID: /subscriptions/4741542a-012a-40dc-ad80-cdca217951f0/resourcegroups/ric-brso-all-rg-k8s/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ric-id-k8s
+  ClientID: bd18dacf-f64e-47a8-a056-a0ce2c7a1e07

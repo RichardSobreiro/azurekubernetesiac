@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-ingress-deployment
+  labels:
+    app: azure-ingress-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-ingress
+  template:
+    metadata:
+      labels:
+        app: azure-ingress
+    spec:
+      containers:
+      - name: azure-ingress-container
+        image: ricbrsoallacrk8s.azurecr.io/helm/v1/ingress-azure:latest
